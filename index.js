@@ -13,33 +13,33 @@ app.get('/', (req, res) => {
     res.send('Hello world!!')
 })
 
-app.get('/users', (req, res) => {
+app.get('/movie', (req, res) => {
     connection.query(
-        'SELECT * FROM users',
+        'SELECT * FROM movie',
         function (err, results, fields) {
             res.send(results)
         }
     )
 })
 
-app.get('/users/:id', (req, res) => {
+app.get('/movie/:id', (req, res) => {
     const id = req.params.id;
     connection.query(
-        'SELECT * FROM users WHERE id = ?', [id],
+        'SELECT * FROM movie WHERE id = ?', [id],
         function (err, results, fields) {
             res.send(results)
         }
     )
 })
 
-app.post('/users', (req, res) => {
+app.post('/movie', (req, res) => {
     connection.query(
-        'INSERT INTO `users` (`fname`, `lname`, `username`, `password`, `avatar`) VALUES (?, ?, ?, ?, ?)',
-        [req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar],
+        'INSERT INTO `movie` (`Mname`, `Diary`, `Details`, `Date`, `Cover`) VALUES (?, ?, ?, ?, ?)',
+        [req.body.Mname, req.body.Diary, req.body.Details, req.body.Date, req.body.Cover],
          function (err, results, fields) {
             if (err) {
-                console.error('Error in POST /users:', err);
-                res.status(500).send('Error adding user');
+                console.error('Error in POST /movie:', err);
+                res.status(500).send('Error adding movie');
             } else {
                 res.status(200).send(results);
             }
@@ -47,19 +47,19 @@ app.post('/users', (req, res) => {
     )
 })
 
-app.put('/users', (req, res) => {
+app.put('/movie', (req, res) => {
     connection.query(
-        'UPDATE `users` SET `fname`=?, `lname`=?, `username`=?, `password`=?, `avatar`=? WHERE id =?',
-        [req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.avatar, req.body.id],
+        'UPDATE `movie` SET `Mname`=?, `Diary`=?, `Details`=?, `Date`=?, `Cover`=? WHERE id =?',
+        [req.body.Mname, req.body.Diary, req.body.Details, req.body.Date, req.body.Cover, req.body.id],
          function (err, results, fields) {
             res.send(results)
         }
     )
 })
 
-app.delete('/users', (req, res) => {
+app.delete('/movie', (req, res) => {
     connection.query(
-        'DELETE FROM `users` WHERE id =?',
+        'DELETE FROM `movie` WHERE id =?',
         [req.body.id],
          function (err, results, fields) {
             res.send(results)
